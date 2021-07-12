@@ -23,7 +23,7 @@ import { NULL_UUID } from '@shared/models/id/has-uuid';
 import { ActionNotificationShow } from '@core/notification/notification.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableConfig } from '@home/models/entity/entities-table-config.models';
-import { TestInfo } from "@shared/models/test.models";
+import {Test, TestInfo} from "@shared/models/test.models";
 @Component({
   selector: 'tb-test',
   templateUrl: './test.component.html',
@@ -61,13 +61,14 @@ export class TestComponent extends EntityComponent<TestInfo> {
       }
     );
   }
-  updateForm(entity: TestInfo) {
+  updateForm(entity: Test) {
     this.entityForm.patchValue({name: entity.name});
-    this.entityForm.patchValue({type: entity.road});
-    this.entityForm.patchValue({label: entity.accidentType});
-    this.entityForm.patchValue({type: entity.nrOfVehicles});
-    this.entityForm.patchValue({label: entity.description});
+    this.entityForm.patchValue({road: entity.road});
+    this.entityForm.patchValue({accidentType: entity.accidentType});
+    this.entityForm.patchValue({nrOfVehicles: entity.nrOfVehicles});
+    this.entityForm.patchValue({description: entity.description});
   }
+
 
   onTestIdCopied($event) {
     this.store.dispatch(new ActionNotificationShow(

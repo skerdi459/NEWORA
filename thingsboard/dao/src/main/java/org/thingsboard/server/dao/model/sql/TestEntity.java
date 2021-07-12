@@ -55,7 +55,7 @@ public final class TestEntity extends BaseSqlEntity<Test> implements SearchTextE
     private UUID tenantId;
 
     @Column(name = ModelConstants.TEST_TITLE_PROPERTY)
-    private String title;
+    private String name;
 
     @Column(name = ModelConstants.TEST_ROAD_PROPERTY)
     private String road;
@@ -89,7 +89,7 @@ public final class TestEntity extends BaseSqlEntity<Test> implements SearchTextE
         if (test.getTenantId() != null) {
             this.tenantId = test.getTenantId().getId();
         }
-        this.title = test.getName();
+        this.name = test.getName();
         this.road = test.getRoad();
         this.accidentType = test.getAccidentType();
         this.nrOfVehicles = test.getNrOfVehicles();
@@ -100,7 +100,7 @@ public final class TestEntity extends BaseSqlEntity<Test> implements SearchTextE
 
     @Override
     public String getSearchTextSource() {
-        return title;
+        return name;
     }
 
     @Override
@@ -115,7 +115,7 @@ public final class TestEntity extends BaseSqlEntity<Test> implements SearchTextE
         if (tenantId != null) {
             test.setTenantId(new TenantId(tenantId));
         }
-        test.setName(title);
+        test.setName(name);
         test.setRoad(road);
         test.setAccidentType(accidentType);
         test.setNrOfVehicles(nrOfVehicles);

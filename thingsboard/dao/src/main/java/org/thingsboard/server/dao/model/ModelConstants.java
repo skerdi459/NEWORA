@@ -50,6 +50,7 @@ public class ModelConstants {
     public static final String CUSTOMER_ID_PROPERTY = "customer_id";
     public static final String DEVICE_ID_PROPERTY = "device_id";
     public static final String TITLE_PROPERTY = "title";
+    public static final String NAME_PROPERTY = "name";
     public static final String ALIAS_PROPERTY = "alias";
     public static final String SEARCH_TEXT_PROPERTY = "search_text";
     public static final String ADDITIONAL_INFO_PROPERTY = "additional_info";
@@ -358,7 +359,7 @@ public class ModelConstants {
      */
     public static final String TEST_COLUMN_FAMILY_NAME = "test";
     public static final String TEST_TENANT_ID_PROPERTY = TENANT_ID_PROPERTY;
-    public static final String TEST_TITLE_PROPERTY = TITLE_PROPERTY;
+    public static final String TEST_TITLE_PROPERTY = NAME_PROPERTY;
     public static final String TEST_IMAGE_PROPERTY = "image";
     public static final String TEST_CONFIGURATION_PROPERTY = "configuration";
     public static final String TEST_ASSIGNED_CUSTOMERS_PROPERTY = "assigned_customers";

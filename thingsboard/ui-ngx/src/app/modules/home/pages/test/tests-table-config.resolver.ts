@@ -103,7 +103,8 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
     this.config.deleteEntitiesTitle = count => this.translate.instant('test.delete-tests-title', {count});
     this.config.deleteEntitiesContent = () => this.translate.instant('test.delete-tests-text');
 
-    this.config.loadEntity = id => this.testService.getTestInfo(id.id);
+
+    this.config.loadEntity = id => this.testService.getTest(id.id);
     this.config.saveEntity = device => {
       console.log("de" + device.id)
       console.log(device)
@@ -113,7 +114,7 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
           console.log("sdsd")
           this.broadcast.broadcast('savedTest');
         }),
-        mergeMap((savedTest) => this.testService.getTestInfo(savedTest.id.id)
+        mergeMap((savedTest) => this.testService.getTest(savedTest.id.id)
         ));
     };
     this.config.detailsReadonly = () => (this.config.componentsData.deviceScope === 'customer_user' || this.config.componentsData.deviceScope === 'edge_customer_user');

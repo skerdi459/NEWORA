@@ -100,7 +100,7 @@ export class TestWizardDialogComponent extends
               private fb: FormBuilder) {
     super(store, router, dialogRef);
     this.testWizardFormGroup = this.fb.group({
-        name: ['', Validators.required],
+        name: [''],
         road: [''],
       accidentType: [''],
       nrOfVehicles: [''],

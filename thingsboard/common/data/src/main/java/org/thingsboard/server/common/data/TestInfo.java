@@ -22,18 +22,18 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
 
     private TenantId tenantId;
 
-    private String title;
+    private String name;
     private String road;
     private String accidentType;
     private int nrOfVehicles;
     private String description;
 
     public String getTitle() {
-        return title;
+        return name;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.name = name;
     }
 
     public String getDescription() {
@@ -59,7 +59,7 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
     public TestInfo(TestInfo dashboardInfo) {
         super(dashboardInfo);
         this.tenantId = dashboardInfo.getTenantId();
-        this.title = dashboardInfo.getName();
+        this.name = dashboardInfo.getName();
         this.road = dashboardInfo.getRoad();
         this.accidentType = dashboardInfo.getRoad();
         this.nrOfVehicles=dashboardInfo.getNrOfVehicles();
@@ -79,7 +79,7 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
     }
 
     public void setName(String name) {
-        this.title = name;
+        this.name = name;
     }
 
     public String getRoad() {
@@ -101,7 +101,7 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
     @Override
 //    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public String getName() {
-        return title;
+        return name;
     }
 
     @Override
@@ -114,7 +114,7 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
         final int prime = 31;
         int result = super.hashCode();
         result = prime * result + ((tenantId == null) ? 0 : tenantId.hashCode());
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
 
 
         return result;
@@ -134,10 +134,10 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
                 return false;
         } else if (!tenantId.equals(other.tenantId))
             return false;
-        if (title == null) {
-            if (other.title != null)
+        if (name == null) {
+            if (other.name != null)
                 return false;
-        } else if (!title.equals(other.title))
+        } else if (!name.equals(other.name))
             return false;
 
         if (road == null) {
@@ -175,7 +175,7 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
         builder.append("TestInfo [tenantId=");
         builder.append(tenantId);
         builder.append(", name=");
-        builder.append(title);
+        builder.append(name);
         builder.append(", road=");
         builder.append(road);
         builder.append(", accidentType=");

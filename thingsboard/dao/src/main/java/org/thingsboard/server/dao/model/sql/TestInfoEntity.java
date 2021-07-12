@@ -49,7 +49,7 @@ public class TestInfoEntity extends BaseSqlEntity<TestInfo> implements SearchTex
     private UUID tenantId;
 
     @Column(name = ModelConstants.TEST_TITLE_PROPERTY)
-    private String title;
+    private String name;
 
     @Column(name = ModelConstants.TEST_ROAD_PROPERTY)
     private String road;
@@ -80,7 +80,7 @@ public class TestInfoEntity extends BaseSqlEntity<TestInfo> implements SearchTex
         if (testInfo.getTenantId() != null) {
             this.tenantId = testInfo.getTenantId().getId();
         }
-        this.title = testInfo.getName();
+        this.name = testInfo.getName();
         this.road=testInfo.getRoad();
         this.accidentType=testInfo.getAccidentType();
         this.nrOfVehicles=testInfo.getNrOfVehicles();
@@ -90,7 +90,7 @@ public class TestInfoEntity extends BaseSqlEntity<TestInfo> implements SearchTex
 
     @Override
     public String getSearchTextSource() {
-        return title;
+        return name;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class TestInfoEntity extends BaseSqlEntity<TestInfo> implements SearchTex
         if (tenantId != null) {
             testInfo.setTenantId(new TenantId(tenantId));
         }
-        testInfo.setName(title);
+        testInfo.setName(name);
         testInfo.setRoad(road);
         testInfo.setAccidentType(accidentType);
         testInfo.setNrOfVehicles(nrOfVehicles);

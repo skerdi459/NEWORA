@@ -77,6 +77,7 @@ export class TestService {
 
   public getTestInfo(testId: string, config?: RequestConfig): Observable<TestInfo> {
     console.log(testId)
+
     return this.http.get<TestInfo>(`/api/test/info/${testId}`, defaultHttpOptionsFromConfig(config));
   }
 

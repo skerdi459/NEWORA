@@ -318,6 +318,7 @@ public abstract class BaseController {
     }
 
     PageLink createPageLink(int pageSize, int page, String textSearch, String sortProperty, String sortOrder) throws ThingsboardException {
+        System.out.println("futem ketu");
         if (!StringUtils.isEmpty(sortProperty)) {
             SortOrder.Direction direction = SortOrder.Direction.ASC;
             if (!StringUtils.isEmpty(sortOrder)) {
@@ -649,6 +650,7 @@ public abstract class BaseController {
             System.out.println("6");
             return test;
         } catch (Exception e) {
+            System.out.println("7*");
             throw handleException(e, false);
         }
     }

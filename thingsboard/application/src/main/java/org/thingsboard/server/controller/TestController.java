@@ -79,6 +79,9 @@ public class TestController extends BaseController {
     @ResponseBody
     public Test saveTest(@RequestBody Test test ) throws ThingsboardException {
         boolean created = test.getId() == null;
+        System.out.println("test");
+        System.out.println(test);
+
         try {
                 test.setTenantId(getCurrentUser().getTenantId());
 
@@ -90,10 +93,10 @@ public class TestController extends BaseController {
                     sendEntityNotificationMsg(savedTest.getTenantId(), savedTest.getId(), EdgeEventActionType.UPDATED);
                 }
                 System.out.println("vij ktu3");
-
+            System.out.println(savedTest);
                 return savedTest;
         } catch (Exception e) {
-
+            System.out.println("gabim?");
             logEntityAction(emptyId(EntityType.TEST), test,
                     null, created ? ActionType.ADDED : ActionType.UPDATED, e);
             throw handleException(e);
