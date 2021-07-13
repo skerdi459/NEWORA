@@ -18,8 +18,7 @@ import { Injectable } from '@angular/core';
 
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import {
-  CellActionDescriptor,
-  checkBoxCell,
+
   DateEntityTableColumn,
   EntityTableColumn,
   EntityTableConfig,
@@ -30,9 +29,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
 import { EntityType, entityTypeResources, entityTypeTranslations } from '@shared/models/entity-type.models';
 import { AddEntityDialogData, EntityAction } from '@home/models/entity/entity-component.models';
-import { Test, TestCredentials, TestInfo } from '@app/shared/models/test.models';
+import { Test, TestInfo } from '@app/shared/models/test.models';
 import { TestComponent } from '@modules/home/pages/test/test.component';
-import { forkJoin, Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectAuthUser } from '@core/auth/auth.selectors';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
@@ -42,12 +41,8 @@ import { CustomerService } from '@core/http/customer.service';
 import { Customer } from '@app/shared/models/customer.model';
 import { NULL_UUID } from '@shared/models/id/has-uuid';
 import { BroadcastService } from '@core/services/broadcast.service';
-import { TestTableHeaderComponent } from '@modules/home/pages/test/test-table-header.component';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  TestCredentialsDialogComponent,
-  TestCredentialsDialogData
-} from '@modules/home/pages/test/test-credentials-dialog.component';
+
 import { DialogService } from '@core/services/dialog.service';
 import {
   AssignToCustomerDialogComponent,
@@ -58,18 +53,15 @@ import {
   AddEntitiesToCustomerDialogComponent,
   AddEntitiesToCustomerDialogData
 } from '../../dialogs/add-entities-to-customer-dialog.component';
-import { TestTabsComponent } from '@home/pages/test/test-tabs.component';
 import { HomeDialogsService } from '@home/dialogs/home-dialogs.service';
 import { TestWizardDialogComponent } from '@home/components/wizard/test-wizard-dialog.component';
 import { BaseData, HasId } from '@shared/models/base-data';
-import { isDefinedAndNotNull } from '@core/utils';
 import { EdgeService } from '@core/http/edge.service';
 import {
   AddEntitiesToEdgeDialogComponent,
   AddEntitiesToEdgeDialogData
 } from '@home/dialogs/add-entities-to-edge-dialog.component';
 import {TestService} from "@core/http/test.service";
-import {DeviceTableHeaderComponent} from "@home/pages/device/device-table-header.component";
 
 @Injectable()
 export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestInfo | Test>> {
@@ -92,7 +84,6 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
 
     this.config.entityType = EntityType.TEST;
     this.config.entityComponent = TestComponent;
-    this.config.entityTabsComponent = TestTabsComponent;
     this.config.entityTranslations = entityTypeTranslations.get(EntityType.TEST);
     this.config.entityResources = entityTypeResources.get(EntityType.TEST);
 
@@ -119,7 +110,7 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
     };
     this.config.detailsReadonly = () => (this.config.componentsData.deviceScope === 'customer_user' || this.config.componentsData.deviceScope === 'edge_customer_user');
 
-    this.config.headerComponent = TestTableHeaderComponent;
+    // this.config.headerComponent = TestTableHeaderComponent;
   }
   resolve(route: ActivatedRouteSnapshot): Observable<EntityTableConfig<TestInfo>> {
     const routeParams = route.params;
@@ -210,86 +201,6 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
     }
   }
 
-  // configureCellActions(testScope: string): Array<CellActionDescriptor<TestInfo>> {
-  //   const actions: Array<CellActionDescriptor<TestInfo>> = [];
-  //   if (testScope === 'tenant') {
-  //     actions.push(
-  //       {
-  //         name: this.translate.instant('test.make-public'),
-  //         icon: 'share',
-  //         isEnabled: (entity) => (!entity.customerId || entity.customerId.id === NULL_UUID),
-  //         onAction: ($event, entity) => this.makePublic($event, entity)
-  //       },
-  //       {
-  //         name: this.translate.instant('test.assign-to-customer'),
-  //         icon: 'assignment_ind',
-  //         isEnabled: (entity) => (!entity.customerId || entity.customerId.id === NULL_UUID),
-  //         onAction: ($event, entity) => this.assignToCustomer($event, [entity.id])
-  //       },
-  //       {
-  //         name: this.translate.instant('test.unassign-from-customer'),
-  //         icon: 'assignment_return',
-  //         isEnabled: (entity) => (entity.customerId && entity.customerId.id !== NULL_UUID && !entity.customerIsPublic),
-  //         onAction: ($event, entity) => this.unassignFromCustomer($event, entity)
-  //       },
-  //       {
-  //         name: this.translate.instant('test.make-private'),
-  //         icon: 'reply',
-  //         isEnabled: (entity) => (entity.customerId && entity.customerId.id !== NULL_UUID && entity.customerIsPublic),
-  //         onAction: ($event, entity) => this.unassignFromCustomer($event, entity)
-  //       },
-  //       {
-  //         name: this.translate.instant('test.manage-credentials'),
-  //         icon: 'security',
-  //         isEnabled: () => true,
-  //         onAction: ($event, entity) => this.manageCredentials($event, entity)
-  //       }
-  //     );
-  //   }
-  //   if (testScope === 'customer') {
-  //     actions.push(
-  //       {
-  //         name: this.translate.instant('test.unassign-from-customer'),
-  //         icon: 'assignment_return',
-  //         isEnabled: (entity) => (entity.customerId && entity.customerId.id !== NULL_UUID && !entity.customerIsPublic),
-  //         onAction: ($event, entity) => this.unassignFromCustomer($event, entity)
-  //       },
-  //       {
-  //         name: this.translate.instant('test.make-private'),
-  //         icon: 'reply',
-  //         isEnabled: (entity) => (entity.customerId && entity.customerId.id !== NULL_UUID && entity.customerIsPublic),
-  //         onAction: ($event, entity) => this.unassignFromCustomer($event, entity)
-  //       },
-  //       {
-  //         name: this.translate.instant('test.manage-credentials'),
-  //         icon: 'security',
-  //         isEnabled: () => true,
-  //         onAction: ($event, entity) => this.manageCredentials($event, entity)
-  //       }
-  //     );
-  //   }
-  //   if (testScope === 'customer_user' || testScope === 'edge_customer_user') {
-  //     actions.push(
-  //       {
-  //         name: this.translate.instant('test.view-credentials'),
-  //         icon: 'security',
-  //         isEnabled: () => true,
-  //         onAction: ($event, entity) => this.manageCredentials($event, entity)
-  //       }
-  //     );
-  //   }
-  //   if (testScope === 'edge') {
-  //     actions.push(
-  //       {
-  //         name: this.translate.instant('edge.unassign-from-edge'),
-  //         icon: 'assignment_return',
-  //         isEnabled: (entity) => true,
-  //         onAction: ($event, entity) => this.unassignFromEdge($event, entity)
-  //       }
-  //     );
-  //   }
-  //   return actions;
-  // }
 
   configureGroupActions(testScope: string): Array<GroupActionDescriptor<TestInfo>> {
     const actions: Array<GroupActionDescriptor<TestInfo>> = [];
@@ -304,16 +215,7 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
       );
     }
 
-    // if (testScope === 'edge') {
-    //   actions.push(
-    //     {
-    //       name: this.translate.instant('test.unassign-tests-from-edge'),
-    //       icon: 'assignment_return',
-    //       isEnabled: true,
-    //       onAction: ($event, entities) => this.unassignTestsFromEdge($event, entities)
-    //     }
-    //   );
-    // }
+
     return actions;
   }
 
@@ -327,12 +229,7 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
           isEnabled: () => true,
           onAction: ($event) => this.testWizard($event)
         }
-        // {
-        //   name: this.translate.instant('test.import'),
-        //   icon: 'file_upload',
-        //   isEnabled: () => true,
-        //   onAction: ($event) => this.importTests($event)
-        // },
+
       );
     }
     if (testScope === 'customer') {
@@ -425,57 +322,6 @@ export class TestTableConfigResolver implements Resolve<EntityTableConfig<TestIn
       });
   }
 
-  // unassignFromCustomer($event: Event, test: TestInfo) {
-  //   if ($event) {
-  //     $event.stopPropagation();
-  //   }
-  //   const isPublic = test.customerIsPublic;
-  //   let title;
-  //   let content;
-  //   if (isPublic) {
-  //     title = this.translate.instant('test.make-private-test-title', {testName: test.name});
-  //     content = this.translate.instant('test.make-private-test-text');
-  //   } else {
-  //     title = this.translate.instant('test.unassign-test-title', {testName: test.name});
-  //     content = this.translate.instant('test.unassign-test-text');
-  //   }
-  //   this.dialogService.confirm(
-  //     title,
-  //     content,
-  //     this.translate.instant('action.no'),
-  //     this.translate.instant('action.yes'),
-  //     true
-  //   ).subscribe((res) => {
-  //       if (res) {
-  //         this.testService.unassignTestFromCustomer(test.id.id).subscribe(
-  //           () => {
-  //             this.config.table.updateData();
-  //           }
-  //         );
-  //       }
-  //     }
-  //   );
-  // }
-
-
-  manageCredentials($event: Event, test: Test) {
-    if ($event) {
-      $event.stopPropagation();
-    }
-    this.dialog.open<TestCredentialsDialogComponent, TestCredentialsDialogData,
-      TestCredentials>(TestCredentialsDialogComponent, {
-      disableClose: true,
-      panelClass: ['tb-dialog', 'tb-fullscreen-dialog'],
-      data: {
-        testId: test.id.id,
-        isReadOnly: this.config.componentsData.testScope === 'customer_user'
-      }
-    }).afterClosed().subscribe(testCredentials => {
-      if (isDefinedAndNotNull(testCredentials)) {
-        this.config.componentsData.testCredentials$.next(testCredentials);
-      }
-    });
-  }
 
 
   addTestsToEdge($event: Event) {

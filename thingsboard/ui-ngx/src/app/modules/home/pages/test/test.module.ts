@@ -21,19 +21,13 @@ import { HomeDialogsModule } from '../../dialogs/home-dialogs.module';
 import { HomeComponentsModule } from '@modules/home/components/home-components.module';
 
 import {TestRoutingModule} from "@home/pages/test/test-routing.module";
-import {TestTabsComponent} from "@home/pages/test/test-tabs.component";
-import {TestTableHeaderComponent} from "@home/pages/test/test-table-header.component";
-import {TestCredentialsDialogComponent} from "@home/pages/test/test-credentials-dialog.component";
 import {TestComponent} from "@home/pages/test/test.component";
 
 @NgModule({
   declarations: [
 
 
-    TestComponent,
-    TestTabsComponent,
-    TestTableHeaderComponent,
-    TestCredentialsDialogComponent
+    TestComponent
   ],
   imports: [
     CommonModule,
