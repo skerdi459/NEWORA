@@ -28,13 +28,6 @@ public class TestController extends BaseController {
 
     public static final String TEST_ID = "testId";
 
-    private static final String HOME_TEST_ID = "homeTestId";
-    private static final String HOME_TEST_HIDE_TOOLBAR = "homeTestHideToolbar";
-
-//    @Value("${test.max_datapoints_limit}")
-//    private long maxDatapointsLimit;
-
-
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')")
     @RequestMapping(value = "/test/serverTime", method = RequestMethod.GET)
     @ResponseBody
@@ -58,6 +51,8 @@ public class TestController extends BaseController {
             throw handleException(e);
         }
     }
+
+
 
     @PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
     @RequestMapping(value = "/test/{testId}", method = RequestMethod.GET)
@@ -137,38 +132,22 @@ public class TestController extends BaseController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     @PreAuthorize("hasAuthority('TENANT_ADMIN')")
     @RequestMapping(value = "/tenant/tests", params = {"pageSize", "page"}, method = RequestMethod.GET)
     @ResponseBody
-    public PageData<TestInfo> getTenantDevices(
+    public PageData<TestInfo> getTenantTests(
             @RequestParam int pageSize,
             @RequestParam int page,
             @RequestParam(required = false) String textSearch,
             @RequestParam(required = false) String sortProperty,
             @RequestParam(required = false) String sortOrder) throws ThingsboardException {
         try {
-            System.out.println(":::::::::::");
             TenantId tenantId = getCurrentUser().getTenantId();
-            System.out.println("sdad"+tenantId);
             PageLink pageLink = createPageLink(pageSize, page, textSearch, sortProperty, sortOrder);
-            System.out.println(":::::::::::"+pageLink);
             System.out.println((checkNotNull(testService.findTestByTenantId(tenantId, pageLink))));
                 return checkNotNull(testService.findTestByTenantId(tenantId, pageLink));
 
         } catch (Exception e) {
-            System.out.println("jemi gb");
             throw handleException(e);
         }
     }

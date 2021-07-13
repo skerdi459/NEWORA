@@ -63,24 +63,5 @@ public class JpaTestInfoDao extends JpaAbstractSearchTextDao<TestInfoEntity, Tes
                         DaoUtil.toPageable(pageLink)));
     }
 
-    @Override
-    public PageData<TestInfo> findTestsByTenantIdAndCustomerId(UUID tenantId, UUID customerId, PageLink pageLink) {
-        return DaoUtil.toPageData(testInfoRepository
-                .findByTenantIdAndCustomerId(
-                        tenantId,
-                        customerId,
-                        Objects.toString(pageLink.getTextSearch(), ""),
-                        DaoUtil.toPageable(pageLink)));
-    }
 
-    @Override
-    public PageData<TestInfo> findTestsByTenantIdAndEdgeId(UUID tenantId, UUID edgeId, PageLink pageLink) {
-        log.debug("Try to find tests by tenantId [{}], edgeId [{}] and pageLink [{}]", tenantId, edgeId, pageLink);
-        return DaoUtil.toPageData(testInfoRepository
-                .findByTenantIdAndEdgeId(
-                        tenantId,
-                        edgeId,
-                        Objects.toString(pageLink.getTextSearch(), ""),
-                        DaoUtil.toPageable(pageLink)));
-    }
 }

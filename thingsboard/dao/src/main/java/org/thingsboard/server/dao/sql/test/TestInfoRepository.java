@@ -35,22 +35,5 @@ public interface TestInfoRepository extends PagingAndSortingRepository<TestInfoE
                                              @Param("searchText") String searchText,
                                              Pageable pageable);
 
-    @Query("SELECT di FROM TestInfoEntity di, RelationEntity re WHERE di.tenantId = :tenantId " +
-            "AND di.id = re.toId AND re.toType = 'TEST' AND re.relationTypeGroup = 'TEST' " +
-            "AND re.relationType = 'Contains' AND re.fromId = :customerId AND re.fromType = 'CUSTOMER' " +
-            "AND LOWER(di.searchText) LIKE LOWER(CONCAT(:searchText, '%'))")
-    Page<TestInfoEntity> findByTenantIdAndCustomerId(@Param("tenantId") UUID tenantId,
-                                                          @Param("customerId") UUID customerId,
-                                                          @Param("searchText") String searchText,
-                                                          Pageable pageable);
-
-    @Query("SELECT di FROM TestInfoEntity di, RelationEntity re WHERE di.tenantId = :tenantId " +
-            "AND di.id = re.toId AND re.toType = 'TEST' AND re.relationTypeGroup = 'EDGE' " +
-            "AND re.relationType = 'Contains' AND re.fromId = :edgeId AND re.fromType = 'EDGE' " +
-            "AND LOWER(di.searchText) LIKE LOWER(CONCAT(:searchText, '%'))")
-    Page<TestInfoEntity> findByTenantIdAndEdgeId(@Param("tenantId") UUID tenantId,
-                                                      @Param("edgeId") UUID edgeId,
-                                                      @Param("searchText") String searchText,
-                                                      Pageable pageable);
 
 }

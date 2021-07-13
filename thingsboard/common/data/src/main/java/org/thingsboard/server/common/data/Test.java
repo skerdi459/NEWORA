@@ -89,8 +89,6 @@ public class Test extends TestInfo {
         builder.append(getNrOfVehicles());
         builder.append(", description=");
         builder.append(getDescription());
-
-
         builder.append(", configuration=");
         builder.append(configuration);
         builder.append("]");

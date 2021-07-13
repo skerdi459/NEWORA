@@ -21,7 +21,6 @@ import org.thingsboard.server.common.data.id.TestId;
 public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTenantId {
 
     private TenantId tenantId;
-
     private String name;
     private String road;
     private String accidentType;
@@ -99,7 +98,6 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
     }
 
     @Override
-//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public String getName() {
         return name;
     }
@@ -151,12 +149,7 @@ public class TestInfo extends SearchTextBased<TestId> implements HasName, HasTen
                 return false;
         } else if (!accidentType.equals(other.accidentType))
             return false;
-//
-//        if (nrOfVehicles == null) {
-//            if (other.nrOfVehicles != null)
-//                return false;
-//        } else if (!nrOfVehicles.equals(other.nrOfVehicles))
-//            return false;
+
         if (description == null) {
             if (other.description != null)
                 return false;

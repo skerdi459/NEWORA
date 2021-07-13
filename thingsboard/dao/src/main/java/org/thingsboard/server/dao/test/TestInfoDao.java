@@ -26,7 +26,7 @@ public interface TestInfoDao extends Dao<TestInfo> {
      * @param pageLink the page link
      * @return the list of dashboard objects
      */
-    PageData<TestInfo> findTestsByTenantIdAndCustomerId(UUID tenantId, UUID customerId, PageLink pageLink);
+//    PageData<TestInfo> findTestsByTenantIdAndCustomerId(UUID tenantId, UUID customerId, PageLink pageLink);
 
     /**
      * Find dashboards by tenantId, edgeId and page link.
@@ -36,6 +36,6 @@ public interface TestInfoDao extends Dao<TestInfo> {
      * @param pageLink the page link
      * @return the list of dashboard objects
      */
-    PageData<TestInfo> findTestsByTenantIdAndEdgeId(UUID tenantId, UUID edgeId, PageLink pageLink);
+//    PageData<TestInfo> findTestsByTenantIdAndEdgeId(UUID tenantId, UUID edgeId, PageLink pageLink);
 
 }
